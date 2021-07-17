@@ -10,8 +10,6 @@ COPY ./app /app
 
 COPY ./credentials.json /app/credentials.json
 
-EXPOSE 8081
-
 WORKDIR /
 
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8082"]
