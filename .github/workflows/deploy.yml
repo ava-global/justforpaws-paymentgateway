@@ -1,0 +1,32 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: deploy
+      uses: fifsky/ssh-action@master
+      with:
+        command: |
+          cd justforpaws-paymentgateway
+          echo ${{ secrets.GOOGLE_CREDENTIAL_JSON }} | base64 -d > credentials.json
+          echo GOOGLE_SPREADHEET_URL=${{ secrets.GOOGLE_SPREADHEET_URL }}  > .env
+          echo GBPRIME_TOKEN=${{ secrets.GBPRIME_TOKEN }}  >> .env
+          git pull
+          sudo docker build --rm -t justforpaws-paymentgateway .
+          docker stop justforpaws-paymentgateway || true && docker rm justforpaws-paymentgateway || true
+          sudo docker run --name justforpaws-paymentgateway -p 8082:8082 -d --env-file .env justforpaws-paymentgateway
+        host: ${{ secrets.REMOTE_HOST }}
+        user: ${{ secrets.REMOTE_USER }}
+        key: ${{ secrets.REMOTE_PRIVATEKEY }}
