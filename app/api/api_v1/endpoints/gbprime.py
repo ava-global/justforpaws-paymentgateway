@@ -8,7 +8,7 @@ from app.gservice import gservice
 router = APIRouter()
 
 @router.get("/gen-gblinkpayment/{account_code}")
-async def gen_gblinkpaymentv2(
+async def gen_gblinkpayment(
         account_code: str,
         name: str = '',
         campaign: str = 'LowCode101',

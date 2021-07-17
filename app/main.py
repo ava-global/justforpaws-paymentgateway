@@ -6,7 +6,7 @@ app = FastAPI(
     title='Just for paw payment gateway', openapi_url='/v1/openapi.json'
 )
 
-app.include_router(api_router, prefix='/v1')
+app.include_router(api_router)
 
 if __name__ == '__main__':
     uvicorn.run(app, port=8082, host='0.0.0.0')
