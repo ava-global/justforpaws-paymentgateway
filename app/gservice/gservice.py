@@ -2,13 +2,16 @@
 import gspread
 import pandas as pd
 from oauth2client.service_account import ServiceAccountCredentials
+import json
+import base64
 import os
 
 
 def read_config_sheet(account_code: str, campaign: str):
     google_spreadsheet_url = os.getenv('GOOGLE_SPREADHEET_URL')
+    credentials_key_file_dict = json.loads(base64.b64decode(os.getenv('GOOGLE_CREDENTIALS')))
     scope = ['https://www.googleapis.com/auth/spreadsheets']
-    credentials = ServiceAccountCredentials.from_json_keyfile_name('/app/credentials.json', scope)
+    credentials = ServiceAccountCredentials.from_json_keyfile_dict(credentials_key_file_dict, scope)
     gc = gspread.authorize(credentials)
     master_account_sheet = gc.open_by_url(google_spreadsheet_url)
     master_account_worksheet = master_account_sheet.get_worksheet(0)  # sheet index in spreadsheets

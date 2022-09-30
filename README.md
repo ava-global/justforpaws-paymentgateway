@@ -2,22 +2,19 @@
 
 ## Details
 
-EC2: i-0e4d37cf195ea5e5d
-Name: niran-payment-gateway
-
-All secrets are stored in `niran/niran-payment-gateway-secret` AWS Secrets Manager.
+All secrets are backed up in `niran/niran-payment-gateway-secret` AWS Secrets Manager.
 
 
 ## Deployment
 
-Get into an EC2 and pull a code from Github.
+Get ready with [fly.io](https://fly.io/docs/) and login with `1buck4life@gmail.com` account.
 
-This EC2 instance can access a repo via a ssh key (Deploy Key feature in Github).
+Recomend readings
+- [Custom Domain and SSL Certificate](https://fly.io/docs/app-guides/custom-domains-with-fly/#teaching-your-app-about-custom-domains)
+- [Dockerfile Deployment](https://fly.io/docs/languages-and-frameworks/dockerfile/)
 
-Start a server.
+All credentials are store using Fly io's secrets.
+
 ```bash
-sudo docker build --rm -t justforpaws-paymentgateway .
-docker stop justforpaws-paymentgateway
-docker rm justforpaws-paymentgateway
-sudo docker run --name justforpaws-paymentgateway -p 80:8082 -d --env-file .env justforpaws-paymentgateway
+flyctl deploy
 ```
