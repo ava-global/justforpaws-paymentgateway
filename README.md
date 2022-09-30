@@ -7,7 +7,7 @@ All secrets are backed up in `niran/niran-payment-gateway-secret` AWS Secrets Ma
 
 ## Deployment
 
-Get ready with [fly.io](https://fly.io/docs/) and login with `1buck4life@gmail.com` account.
+Get ready with [fly.io](https://fly.io/docs/) and login with `1buck4life@gmail.com` account (Password is the same as Gmail password).
 
 Recomend readings
 - [Custom Domain and SSL Certificate](https://fly.io/docs/app-guides/custom-domains-with-fly/#teaching-your-app-about-custom-domains)
